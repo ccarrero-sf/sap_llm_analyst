@@ -13,7 +13,7 @@ CREATE OR REPLACE API INTEGRATION API_GITHUB_REPO_SAP_LLM_ANALYST
   ENABLED = TRUE;
 
 CREATE OR REPLACE GIT REPOSITORY GITHUB_REPO_SAP_LLM_ANALYST
-    api_integration = git_api_integration_chatbot
+    api_integration = API_GITHUB_REPO_SAP_LLM_ANALYST
     origin = 'https://github.com/ccarrero-sf/sap_llm_analyst';
 
 -- Make sure we get the latest files
