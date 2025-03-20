@@ -1,4 +1,7 @@
-# sap_llm_analyst
+# SAP LLM ANALYST DEMO
+
+1. Copy/Past and run all these in a Snowflake Worksheet. This will setup the git connection, fetch the repository
+and will run the setup.sql script to setup the RAW layer. It will also creat the Notebook to be run
 
 ```sql
 
@@ -27,10 +30,16 @@ EXECUTE IMMEDIATE FROM @SAP_LLM_ANALYST2.PUBLIC.GITHUB_REPO_SAP_LLM_ANALYST/setu
 
 -- Copy the Notebook to be used
 
-CREATE OR REPLACE NOTEBOOK SAP_PREP_GOD
-    FROM '@SAP_LLM_ANALYST2.PUBLIC.GITHUB_REPO_SAP_LLM_ANALYST/' 
+CREATE OR REPLACE NOTEBOOK SAP_PREP_GOLD
+    FROM '@SAP_LLM_ANALYST2.PUBLIC.GITHUB_REPO_SAP_LLM_ANALYST/branches/main/' 
         MAIN_FILE = 'SAP_PREP_GOLD.ipynb' 
         QUERY_WAREHOUSE = COMPUTE_WH;
-ALTER NOTEBOOK SAP_PREP_GOD ADD LIVE VERSION FROM LAST;
+
+ALTER NOTEBOOK SAP_PREP_GOLD ADD LIVE VERSION FROM LAST;
 
 ```
+
+2. Open the SAP_PREP_GOLD notebook and follow the instructions
+
+3. Open Semantic Model Generator to create a semantic file to be used with Cortex Analyst
+
