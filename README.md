@@ -25,6 +25,9 @@ SELECT SYSTEM$ENABLE_BEHAVIOR_CHANGE_BUNDLE('2024_08');
 -- Check it is enabled
 SELECT SYSTEM$BEHAVIOR_CHANGE_BUNDLE_STATUS('2024_08');
 
+-- enable cross-region inference if you wish to use a model which is not available in your region
+ALTER ACCOUNT SET CORTEX_ENABLED_CROSS_REGION = 'ANY_REGION';
+
 -- Create RAW layer automation
 EXECUTE IMMEDIATE FROM @SAP_LLM_ANALYST2.PUBLIC.GITHUB_REPO_SAP_LLM_ANALYST/branches/main/setup.sql;
 
