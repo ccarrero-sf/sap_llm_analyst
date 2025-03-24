@@ -1,0 +1,384 @@
+name: semantic_model_example
+description: 'This semantic model describes SAP data from tables: 0customer_attr, 0fi_ar_4 and 0material_attr'
+tables:
+  - name: ACCOUNTS_RECEIVABLE_MART
+    base_table:
+      database: SAP_LLM_ANALYST2
+      schema: SAP_GOLD
+      table: ACCOUNTS_RECEIVABLE_MART
+    dimensions:
+      - name: COMPANY_CODE
+        expr: COMPANY_CODE
+        data_type: VARCHAR(4)
+        sample_values:
+          - '0005'
+          - '0006'
+          - '1000'
+        description: Unique identifier for the company to which the accounts receivable belongs.
+        synonyms:
+          - company_id
+          - org_code
+          - corp_id
+          - business_unit
+          - enterprise_code
+          - org_identifier
+      - name: FISCAL_YEAR
+        expr: FISCAL_YEAR
+        data_type: VARCHAR(4)
+        sample_values:
+          - '2006'
+          - '2008'
+          - '2009'
+        description: The fiscal year in which the account receivable was recorded, representing the 12-month period used for financial reporting and budgeting purposes.
+        synonyms:
+          - financial_year
+          - budget_year
+          - tax_year
+          - accounting_year
+          - calendar_year
+      - name: FISCAL_PERIOD
+        expr: FISCAL_PERIOD
+        data_type: VARCHAR(7)
+        sample_values:
+          - '2006002'
+          - '2006005'
+          - '2006012'
+        description: Fiscal period in which the account receivable was recorded, represented by a unique identifier in the format YYYYMM, where YYYY is the fiscal year and MM is the fiscal month.
+        synonyms:
+          - accounting_period
+          - financial_period
+          - fiscal_quarter
+          - financial_quarter
+          - reporting_period
+          - accounting_cycle
+          - budget_period
+      - name: ACCOUNTING_DOCUMENT_NUMBER
+        expr: ACCOUNTING_DOCUMENT_NUMBER
+        data_type: VARCHAR(10)
+        sample_values:
+          - '1800000000'
+          - '1400000000'
+          - '1400000001'
+        description: Unique identifier for an accounting document, such as an invoice or credit memo, used to track and manage accounts receivable transactions.
+        synonyms:
+          - invoice_number
+          - document_id
+          - financial_transaction_number
+          - accounting_doc_num
+          - transaction_number
+          - voucher_number
+          - journal_entry_number
+          - ledger_entry_number
+      - name: DOCUMENT_TYPE
+        expr: DOCUMENT_TYPE
+        data_type: VARCHAR(2)
+        sample_values:
+          - DR
+          - DZ
+          - ZP
+        description: Type of document related to the accounts receivable, where DR represents Debit, DZ represents Debit Note, and ZP represents Invoice.
+        synonyms:
+          - document_category
+          - doc_type
+          - record_type
+          - file_type
+          - doc_class
+      - name: CUSTOMER_NUMBER
+        expr: CUSTOMER_NUMBER
+        data_type: VARCHAR(10)
+        sample_values:
+          - '0000001000'
+          - '0000001050'
+          - '0000001170'
+        description: Unique identifier for the customer associated with the accounts receivable transaction.
+        synonyms:
+          - customer_id
+          - client_number
+          - account_number
+          - client_id
+          - customer_account
+          - account_holder_id
+          - client_account_number
+      - name: CUSTOMER_NAME
+        expr: CUSTOMER_NAME
+        data_type: VARCHAR(35)
+        description: The name of the customer to whom the account is receivable.
+        synonyms:
+          - client_name
+          - customer_title
+          - account_holder
+          - account_name
+          - client_title
+          - company_name
+          - customer_title_name
+          - account_owner
+        cortex_search_service:
+          database: SAP_LLM_ANALYST2
+          schema: SAP_GOLD
+          service: CUSTOMER_NAME_SEARCH
+      - name: INDUSTRY_KEY
+        expr: INDUSTRY_KEY
+        data_type: VARCHAR(4)
+        sample_values:
+          - TRAD
+          - HITE
+        description: Industry classification of the account, where TRAD represents Traditional and HITE represents High-Tech.
+        synonyms:
+          - sector_code
+          - industry_identifier
+          - market_segment
+          - business_category
+          - industry_classification
+      - name: CUSTOMER_COUNTRY
+        expr: CUSTOMER_COUNTRY
+        data_type: VARCHAR(3)
+        sample_values:
+          - '001'
+        description: The country where the customer is located.
+        synonyms:
+          - country_code
+          - nation
+          - customer_nation
+          - geographical_region
+          - territory
+          - customer_territory
+          - region_code
+      - name: PAYMENT_TERMS
+        expr: PAYMENT_TERMS
+        data_type: VARCHAR(4)
+        sample_values:
+          - ZB01
+          - '0001'
+        description: Payment terms agreed upon with the customer, defining the conditions under which payment is expected, such as the due date, discount terms, and payment method.
+        synonyms:
+          - payment_conditions
+          - terms_of_payment
+          - payment_agreement
+          - settlement_terms
+          - payment_arrangements
+      - name: PAYMENT_STATUS
+        expr: PAYMENT_STATUS
+        data_type: VARCHAR(1)
+        sample_values:
+          - O
+          - C
+        description: Indicates the status of a payment, where "O" represents an outstanding payment and "C" represents a cleared payment.
+        synonyms:
+          - payment_condition
+          - transaction_status
+          - payment_state
+          - settlement_status
+          - payment_outcome
+      - name: LOCAL_CURRENCY
+        expr: LOCAL_CURRENCY
+        data_type: VARCHAR(5)
+        sample_values:
+          - EUR
+          - USD
+          - GBP
+        description: The currency in which the account receivable is denominated.
+        synonyms:
+          - domestic_currency
+          - native_currency
+          - home_currency
+          - local_money
+          - regional_currency
+          - national_currency
+      - name: TRANSACTION_CURRENCY
+        expr: TRANSACTION_CURRENCY
+        data_type: VARCHAR(5)
+        sample_values:
+          - USD
+          - EUR
+          - DEM
+        description: The currency in which the transaction was made.
+        synonyms:
+          - exchange_currency
+          - trade_currency
+          - deal_currency
+          - settlement_currency
+          - transactional_currency
+      - name: DEBIT_CREDIT_INDICATOR
+        expr: DEBIT_CREDIT_INDICATOR
+        data_type: VARCHAR(1)
+        sample_values:
+          - S
+          - H
+        description: Indicates whether the account is a debit or credit, where 'S' represents a debit and 'H' represents a credit.
+        synonyms:
+          - transaction_type
+          - debit_credit_flag
+          - dc_indicator
+          - transaction_indicator
+          - charge_type
+          - payment_direction
+      - name: GL_ACCOUNT
+        expr: GL_ACCOUNT
+        data_type: VARCHAR(10)
+        sample_values:
+          - '0000140000'
+          - '0000145000'
+          - '0000141000'
+        description: General Ledger account number used to track and categorize accounts receivable transactions.
+        synonyms:
+          - general_ledger_account
+          - account_number
+          - gl_code
+          - ledger_account
+          - account_id
+          - financial_account
+          - chart_of_accounts
+          - account_code
+      - name: SALES_DOCUMENT
+        expr: SALES_DOCUMENT
+        data_type: VARCHAR(10)
+        sample_values:
+          - '0090000000'
+          - '0090000001'
+        description: Unique identifier for a sales document, such as an invoice or credit memo, that is used to track and manage accounts receivable.
+        synonyms:
+          - sales_order
+          - invoice_number
+          - order_number
+          - purchase_order
+          - sales_invoice
+          - order_reference
+          - transaction_id
+          - document_number
+      - name: DUNNING_BLOCK
+        expr: DUNNING_BLOCK
+        data_type: VARCHAR(3)
+        sample_values:
+          - TP
+          - '14'
+        description: Dunning block status, indicating whether a customer's account is blocked from further dunning (TP) or has a specific dunning block level (numeric value).
+        synonyms:
+          - dunning_status
+          - collection_block
+          - payment_block
+          - account_block
+          - credit_hold
+      - name: DOCUMENT_STATUS
+        expr: DOCUMENT_STATUS
+        data_type: VARCHAR(7)
+        sample_values:
+          - Open
+          - Cleared
+        description: The current status of the accounts receivable document, indicating whether it is still outstanding (Open) or has been fully paid and cleared (Cleared).
+        synonyms:
+          - document_state
+          - status
+          - doc_status
+          - invoice_status
+          - payment_status
+          - document_condition
+          - record_status
+    time_dimensions:
+      - name: POSTING_DATE
+        expr: POSTING_DATE
+        data_type: DATE
+        sample_values:
+          - '2006-02-01'
+          - '2006-05-04'
+          - '2006-05-09'
+        description: The date when the transaction was posted to the accounts receivable ledger.
+        synonyms:
+          - entry_date
+          - transaction_date
+          - posting_timestamp
+          - document_posting_date
+          - accounting_date
+          - journal_date
+          - ledger_date
+          - entry_timestamp
+      - name: CLEARING_DATE
+        expr: CLEARING_DATE
+        data_type: DATE
+        sample_values:
+          - '2006-05-09'
+          - '2011-01-24'
+        description: Date on which the account receivable was cleared or settled.
+        synonyms:
+          - settlement_date
+          - payment_clearing_date
+          - cleared_date
+          - transaction_clearing_date
+          - date_cleared
+      - name: NET_DUE_DATE
+        expr: NET_DUE_DATE
+        data_type: DATE
+        sample_values:
+          - '2006-03-18'
+          - '2006-05-04'
+          - '2006-05-01'
+        description: The date by which the outstanding balance of an account is due to be paid.
+        synonyms:
+          - due_date
+          - payment_due_date
+          - invoice_due_date
+          - settlement_date
+          - maturity_date
+          - payment_deadline
+          - bill_due_date
+      - name: DOCUMENT_DATE
+        expr: DOCUMENT_DATE
+        data_type: DATE
+        sample_values:
+          - '2006-02-01'
+          - '2006-05-04'
+          - '2006-05-01'
+        description: Date when the accounts receivable document was created or issued.
+        synonyms:
+          - invoice_date
+          - document_creation_date
+          - record_date
+          - filing_date
+          - registration_date
+          - submission_date
+          - date_documented
+    facts:
+      - name: LOCAL_CURRENCY_AMOUNT
+        expr: LOCAL_CURRENCY_AMOUNT
+        data_type: FLOAT
+        sample_values:
+          - '4166.5'
+          - '-14500'
+          - '-12300'
+        description: The amount of money owed to the company by its customers, expressed in the local currency of the transaction. Not to be used when aggregating from different clients that may have different currency
+        synonyms:
+          - local_amount
+          - local_value
+          - amount_in_local_currency
+          - local_currency_value
+          - local_transaction_amount
+        default_aggregation: 1
+      - name: TRANSACTION_CURRENCY_AMOUNT
+        expr: TRANSACTION_CURRENCY_AMOUNT
+        data_type: FLOAT
+        sample_values:
+          - '5000'
+          - '-14500'
+          - '-12300'
+        description: The amount of the transaction in the currency in which the transaction was made.
+        synonyms:
+          - transaction_value
+          - amount_in_transaction_currency
+          - transaction_amount
+          - foreign_currency_amount
+          - transaction_total
+      - name: DAYS_OUTSTANDING
+        expr: DAYS_OUTSTANDING
+        data_type: NUMBER(9,0)
+        sample_values:
+          - '6991'
+          - '5'
+          - '6899'
+        description: The number of days that an invoice or payment has been outstanding, indicating how long a customer has taken to pay their debt.
+        synonyms:
+          - days_overdue
+          - outstanding_days
+          - days_past_due
+          - overdue_days
+          - days_since_due_date
+          - aged_days
+          - days_delinquent
