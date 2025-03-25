@@ -26,6 +26,9 @@ API_TIMEOUT = 50000  # in milliseconds
 
 # Initialize a Snowpark session for executing queries
 session = get_active_session()
+session.use_database('SAP_LLM_ANALYST2')
+session.use_schema('PUBLIC')
+session.use_warehouse('COMPUTE_WH')
 
 
 def main():
