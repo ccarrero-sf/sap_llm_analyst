@@ -97,3 +97,29 @@ Let's test the Cortex Search integration. Let's ask for one particular customer:
 
 Notice that the name is completed
 
+You can also try using the SAP_CHAT Streamlit App provided as example of how to use the API! 
+
+Create yourself or just run this in a worksheet to have it installed:
+
+```sql
+
+use database SAP_LLM_ANALYST2;
+use schema PUBLIC;
+
+CREATE OR REPLACE STAGE STREAMLIT_STAGE
+DIRECTORY = (ENABLE = true);
+
+COPY FILES 
+    INTO @STREAMLIT_STAGE
+    FROM @SAP_LLM_ANALYST2.PUBLIC.GITHUB_REPO_SAP_LLM_ANALYST/branches/main/
+    FILES =('SAP_CHAT.py', 'environment.yml');
+
+
+ALTER STAGE STREAMLIT_STAGE REFRESH;
+
+CREATE OR REPLACE STREAMLIT SAP_CHAT
+    ROOT_LOCATION = '@STREAMLIT_STAGE'
+    MAIN_FILE = 'SAP_CHAT.py'
+    TITLE = 'SAP CHATBOT'
+    QUERY_WAREHOUSE = 'COMPUTE_WH'; 
+```
