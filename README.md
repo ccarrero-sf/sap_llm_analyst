@@ -89,6 +89,7 @@ Find CUSTOMER_NAME column in your semantic model. Remove the sample values (as t
 Now you can test your semantic model. Start asking questions!
 
 - What is the total account receivable per customer?
+- What is the total outstanding receivables amount by business segment?
 - What is the aging profile of receivables by country, showing amounts that are current, 30-60-90 days past due?
 
 Let's test the Cortex Search integration. Let's ask for one particular customer:
